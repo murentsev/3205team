@@ -8,22 +8,32 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-
+    
+    //MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setControllers()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: - Private properties
+    
+    private func setControllers() {
+        viewControllers = [
+            createNavController(for: SearchUserScreenController(), title: "Repositories", image: UIImage(systemName: "magnifyingglass")!),
+            createNavController(for: DownloadedReposScreenController(), title: "Downloaded", image: UIImage(systemName: "tray.2.fill")!)
+        ]
     }
-    */
-
+    
+    private func createNavController(for rootViewController: UIViewController,
+                                         title: String,
+                                         image: UIImage) -> UIViewController {
+        let navController = UINavigationController(rootViewController: rootViewController)
+        navController.tabBarItem.title = title
+        navController.tabBarItem.image = image
+        navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.title = title
+        return navController
+    }
+    
 }
